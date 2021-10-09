@@ -46,7 +46,6 @@ async function commandExecute(interaction) {
 }
 
 async function buttonExecute(interaction) {
-    console.log(interaction);
     if (interaction.customId == 'yes') {
         await interaction.reply("Yay! I'll give you one right now :D 🎂")
     }

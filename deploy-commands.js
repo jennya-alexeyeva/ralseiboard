@@ -1,6 +1,8 @@
 /**
  * Deploys commands to the server. Replace applicationGuildCommands(clientId, guildId) with applicationCommands(clientId)
  * to deploy to all servers.
+ * NOTE: Do not run both the deploy to all servers command and the deploy to one server command
+ * at the same time. It will duplicate the commands. The all servers command takes an hour; this is normal.
  */
 
 const fs = require('fs');
@@ -18,17 +20,6 @@ for (const file of commandFiles) {
 
 const rest = new REST({version: '9'}).setToken(token);
 
-(async () => {
-    try {
-        console.log('Started refreshing application commands');
-
-        await rest.put(
-            Routes.applicationGuildCommands(clientId, guildId),
-            { body: commands},
-        );
-
-        console.log('Successfully reloaded application commands.');
-    } catch (error) {
-        console.error(error);
-    }
-})();
+rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
+	.then(() => console.log('Successfully registered application commands.'))
+	.catch(console.error);

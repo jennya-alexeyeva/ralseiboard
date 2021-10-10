@@ -18,3 +18,4 @@ rest.get(Routes.applicationGuildCommands(clientId, guildId))
         }
         return Promise.all(promises);
     })
+    

@@ -21,7 +21,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("yummycakes")
         .setDescription("Will you accept some yummy cakes from Ralsei?"),
-    async execute(interaction) {
+    async execute(interaction, _) {
         await interaction.reply({content: 'I baked you some yummy cakes! Do you want them?', 
             components: [buttons]})
     }

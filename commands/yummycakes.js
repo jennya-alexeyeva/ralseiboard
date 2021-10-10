@@ -1,6 +1,10 @@
 const {SlashCommandBuilder} = require("@discordjs/builders");
 const { MessageActionRow, MessageButton, Interaction } = require("discord.js");
 
+/**
+ * Ask Ralsei for some yummy cakes!
+ */
+
 const buttons = new MessageActionRow()
     .addComponents(
         new MessageButton()

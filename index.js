@@ -46,6 +46,10 @@ async function commandExecute(interaction) {
 }
 
 async function buttonExecute(interaction) {
+    buttons = interaction.message.components[0]
+    buttons.components.map(button => button.setDisabled(true))
+    await interaction.message.edit({content: 'I baked you some yummy cakes! Do you want them?', components: [buttons]})
+
     if (interaction.customId == 'yes') {
         await interaction.reply("Yay! I'll give you one right now :D 🎂")
     }

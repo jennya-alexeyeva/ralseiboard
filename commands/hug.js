@@ -1,5 +1,8 @@
 const {SlashCommandBuilder} = require("@discordjs/builders");
 
+/**
+ * Give Ralsei a hug
+ */
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("hug")

@@ -1,5 +1,11 @@
 const {SlashCommandBuilder} = require("@discordjs/builders");
 
+/**
+ * Queries the Undertale text box generator found here: https://www.demirramon.com/generators/undertale_text_box_generator
+ * to generate a text box with something that Ralsei totally said
+ */
+
+
 const listOfExpressions = ['default', 'looking-down', 'looking-down-blush', 
 'shocked', 'sad', 'smile', 'blush', 'happy', 'angry', 'concerned']
 

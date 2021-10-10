@@ -15,3 +15,4 @@ Non-dashboard plans:
     - this will be hard!
 - /dashboard sends a link to the dashboard
     - look into how to generate a new one for each server (for now though how to get one link lmaoooo)
+    

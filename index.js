@@ -27,6 +27,15 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
+client.on('guildCreate', guild => {
+    // add code to make database
+    // TODO make optional init command that crawls through channels and adds all message info to database
+})
+
+client.on('guildDelete', guild => {
+    // add code to delete database
+})
+
 client.on('interactionCreate', async interaction => {
     if (interaction.isCommand()) commandExecute(interaction)
     if (interaction.isButton()) buttonExecute(interaction)

@@ -21,5 +21,5 @@ module.exports = {
     async execute(interaction) {
         await interaction.reply({content: "WARNING: This command will crawl through every single message sent in the server. As such, it will take a while to run, and during its runtime, it will not be able to listen to new messages. It is highly recommended that you run this when the server is inactive. Proceed anyway?",
                 components: [buttons]});
-    } // TODO write init script that runs when the yes button is pressed
+    } // TODO write init script that runs when the yes button is pressed, kind of based on my failed mostactive command
 }

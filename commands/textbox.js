@@ -64,7 +64,7 @@ module.exports = {
             option.setName('text')
                 .setDescription('What will Ralsei say in the text box?')
                 .setRequired(true)),
-    async execute(interaction, _) {
+    async execute(interaction) {
         let ralseiType = interaction.options.getString('type')
         let ralseiExpression = (ralseiType === 'hat' ?
                 expressionsToHatRalsei[interaction.options.getString('expression')] :

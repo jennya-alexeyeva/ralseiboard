@@ -1,4 +1,6 @@
 // Require the necessary discord.js classes
+// noinspection JSIgnoredPromiseFromCall
+
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
@@ -22,7 +24,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
-    // Set a new item in the collection with the key as the commmand name and the value
+    // Set a new item in the collection with the key as the command name and the value
     // as the exported module
     client.commands.set(command.data.name, command);
 }
@@ -37,8 +39,8 @@ client.on('guildDelete', guild => {
 })
 
 client.on('interactionCreate', async interaction => {
-    if (interaction.isCommand()) commandExecute(interaction)
-    if (interaction.isButton()) buttonExecute(interaction)
+    if (interaction.isCommand()) await commandExecute(interaction)
+    if (interaction.isButton()) await buttonExecute(interaction)
 	})
 
 async function commandExecute(interaction) {
@@ -55,14 +57,15 @@ async function commandExecute(interaction) {
 }
 
 async function buttonExecute(interaction) {
-    buttons = interaction.message.components[0]
+    // TODO figure out a way to optimize this without an endless if else like i'm fucking yandev
+    let buttons = interaction.message.components[0]
     buttons.components.map(button => button.setDisabled(true))
     await interaction.message.edit({content: 'I baked you some yummy cakes! Do you want them?', components: [buttons]})
 
-    if (interaction.customId == 'yes') {
+    if (interaction.customId === 'yesCakes') {
         await interaction.reply("Yay! I'll give you one right now :D 🎂")
     }
-    else if (interaction.customId == 'no') {
+    else if (interaction.customId === 'noCakes') {
         await interaction.reply("Aw :( Maybe some other time?");
     }
 }

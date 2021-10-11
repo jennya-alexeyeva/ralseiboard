@@ -9,11 +9,11 @@ const { MessageActionRow, MessageButton } = require("discord.js");
 const buttons = new MessageActionRow()
     .addComponents(
         new MessageButton()
-            .setCustomId('yes')
+            .setCustomId('yesCakes')
             .setLabel('Yes')
             .setStyle('SUCCESS'),
         new MessageButton()
-            .setCustomId('no')
+            .setCustomId('noCakes')
             .setLabel('No')
             .setStyle('DANGER')
     )
@@ -22,7 +22,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("yummycakes")
         .setDescription("Will you accept some yummy cakes from Ralsei?"),
-    async execute(interaction, _) {
+    async execute(interaction) {
         await interaction.reply({content: 'I baked you some yummy cakes! Do you want them?', 
             components: [buttons]})
     }

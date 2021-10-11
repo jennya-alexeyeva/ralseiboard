@@ -41,7 +41,7 @@ const expressionsToHatlessRalsei = {
 }
 
 function buildRalseiUrl(type, expression, text) {
-    return `https://www.demirramon.com/gen/undertale_text_box.png?text=${encodeURIComponent(text)}&box=deltarune&boxcolor=ffffff&character=${type == 'hat' ? 'deltarune-ralseidisguise' : 'deltarune-ralsei'}&expression=${expression}&charcolor=colored&font=determination&asterisk=ffffff&mode=darkworld`
+    return `https://www.demirramon.com/gen/undertale_text_box.png?text=${encodeURIComponent(text)}&box=deltarune&boxcolor=ffffff&character=${type === 'hat' ? 'deltarune-ralseidisguise' : 'deltarune-ralsei'}&expression=${expression}&charcolor=colored&font=determination&asterisk=ffffff&mode=darkworld`
 
 }
 
@@ -58,7 +58,6 @@ module.exports = {
         .addStringOption(option =>
             option.setName('expression')
                 .setDescription("What expression will Ralsei have in the textbox?")
-                .setRequired(true)
                 .addChoices(listOfExpressionsMapped)
                 .setRequired(true))
         .addStringOption(option =>
@@ -66,13 +65,13 @@ module.exports = {
                 .setDescription('What will Ralsei say in the text box?')
                 .setRequired(true)),
     async execute(interaction, _) {
-        ralseiType = interaction.options.getString('type')
-        ralseiExpression = (ralseiType == 'hat' ? 
-                expressionsToHatRalsei[interaction.options.getString('expression')] : 
-                expressionsToHatlessRalsei[interaction.options.getString('expression')]),
-        ralseiText = interaction.options.getString('text');
+        let ralseiType = interaction.options.getString('type')
+        let ralseiExpression = (ralseiType === 'hat' ?
+                expressionsToHatRalsei[interaction.options.getString('expression')] :
+                expressionsToHatlessRalsei[interaction.options.getString('expression')])
+        let ralseiText = interaction.options.getString('text');
 
-        url = buildRalseiUrl(ralseiType, ralseiExpression, ralseiText)
+        let url = buildRalseiUrl(ralseiType, ralseiExpression, ralseiText)
        await interaction.reply({
         files: [url]
       });

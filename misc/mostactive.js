@@ -1,6 +1,6 @@
 const {SlashCommandBuilder} = require("@discordjs/builders");
 /**
- * Gets the given user's most active channel. Not currently useable as a command, but I'm keeping the code because it has a good
+ * Gets the given user's most active channel. Not currently usable as a command, but I'm keeping the code because it has a good
  * foundation for the future webapp.
  */
 
@@ -15,7 +15,7 @@ async function fetch(channel, userId) {
     let channelMessages = await channel.messages.fetch({limit: 100});
 
     while (channelMessages.size > 0) {
-        msgs += channelMessages.filter(msg => msg.author.id == userId).size
+        msgs += channelMessages.filter(msg => msg.author.id === userId).size
         channelMessages = await channel.messages.fetch({
             limit: 100,
             before: channelMessages.last().id
@@ -55,7 +55,7 @@ module.exports = {
         let channel = interaction.channel
         await interaction.reply("I'll take a while to calculate this! Be patient!");
         await fetchAllMessages(userId, client, guildId).then(async channelToNumMessages => {
-            var channels = Object.keys(channelToNumMessages).map(key => {
+            let channels = Object.keys(channelToNumMessages).map(key => {
                 return [key, channelToNumMessages[key]];
             });
             channels.sort((first, second) => {

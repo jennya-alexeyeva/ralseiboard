@@ -2,7 +2,6 @@
  * Deletes all commands. Change applicationGuildCommands(clientId, guildId) to
  * applicationCommands(clientId) to delete commands for all servers.
  */
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { token, clientId, guildId } = require('./config.json');

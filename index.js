@@ -1,5 +1,4 @@
 // Require the necessary discord.js classes
-// noinspection JSIgnoredPromiseFromCall
 
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
@@ -20,7 +19,7 @@ for (const file of eventFiles) {
 }
 
 client.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); 
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
@@ -41,26 +40,26 @@ client.on('guildDelete', guild => {
 client.on('interactionCreate', async interaction => {
     if (interaction.isCommand()) await commandExecute(interaction)
     if (interaction.isButton()) await buttonExecute(interaction)
-	})
+})
 
 async function commandExecute(interaction) {
     const command = client.commands.get(interaction.commandName);
 
-	if (!command) return;
+    if (!command) return;
 
-	try {
-		await command.execute(interaction, client);
-	} catch (error) {
-		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-	}
+    try {
+        await command.execute(interaction, client);
+    } catch (error) {
+        console.error(error);
+        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+    }
 }
 
 async function buttonExecute(interaction) {
     // TODO figure out a way to optimize this without an endless if else like i'm fucking yandev
     let buttons = interaction.message.components[0]
     buttons.components.map(button => button.setDisabled(true))
-    await interaction.message.edit({content: 'I baked you some yummy cakes! Do you want them?', components: [buttons]})
+    await interaction.message.edit({ content: 'I baked you some yummy cakes! Do you want them?', components: [buttons] })
 
     if (interaction.customId === 'yesCakes') {
         await interaction.reply("Yay! I'll give you one right now :D 🎂")

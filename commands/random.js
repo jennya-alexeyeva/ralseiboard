@@ -12,7 +12,8 @@ const listOfMemes = ["https://pbs.twimg.com/media/FBrLGZqXoAQtFZ4.png",
                      "https://pbs.twimg.com/media/CsxIqkWWAAA7KBO.jpg",
                      "https://c.tenor.com/AbqZsnE1y4wAAAAC/ralsei-gun.gif",
                      "https://i.kym-cdn.com/entries/icons/facebook/000/038/462/Untitled_2.jpg",
-                     "https://media.discordapp.net/attachments/852037066027040789/899099620066603018/image0.png"]
+                     "https://media.discordapp.net/attachments/852037066027040789/899099620066603018/image0.png",
+                     "https://media.discordapp.net/attachments/895457995952111677/898180317893001266/image0.jpg"]
 
 const listOfGifs = ["https://media.riffsy.com/images/e0e41e0f9a34ed17aed6cbdeea888739/tenor.gif",
                     "https://media.riffsy.com/images/847ee5097ba852c0ad97e44c2e6dc108/tenor.gif",

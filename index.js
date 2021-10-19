@@ -2,7 +2,8 @@
 
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./config.json');
+const { token, host, port, username, password, database } = require('./config.json');
+const mysql = require('mysql2');
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -28,13 +29,27 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
+let connection = mysql.createConnection({
+    port     : port,
+    host     : host,
+    user     : username,
+    password : password,
+    database : database
+  });
+connection.connect();
+
 client.on('guildCreate', guild => {
-    // add code to make database
-    // TODO make optional init command that crawls through channels and adds all message info to database
+    connection.query(`CREATE TABLE \`messages-${guild.id}\` (` +
+        'MessageId text, ' +
+        'Author text, ' +
+        'Channel text, ' +
+        'Day int, ' +
+        'Time int)'
+        )
 })
 
 client.on('guildDelete', guild => {
-    // add code to delete database
+    connection.query(`DROP TABLE IF EXISTS \`messages-${guild.id}\``);
 })
 
 client.on('interactionCreate', async interaction => {

@@ -7,12 +7,16 @@ Dashboard plans:
 - Page for each user showing what times and what channels they're the most active in
 - Who knows?
 
-Non-dashboard plans:
-- /hug command that makes Ralsei respond happily
-- /image sends a random Ralsei image
-- /gif sends a random Ralsei gif
-- /textbox queries the [Undertale Text Box Generator](https://www.demirramon.com/generators/undertale_text_box_generator) and generates a Ralsei text box based on parameters
-    - this will be hard!
-- /dashboard sends a link to the dashboard
-    - look into how to generate a new one for each server (for now though how to get one link lmaoooo)
+Current commands:
+- /hug: hug Ralsei
+- /random image: get a random Ralsei image
+- /random gif: get a random Ralsei gif
+- /random meme: get a random Ralsei meme
+- /textbox: queries the [Undertale Text Box Generator](https://www.demirramon.com/generators/undertale_text_box_generator) to make Ralsei say what you want
+- /yummycakes: Ralsei will offer you some yummy cakes
+- /init: initializes the database
+
+Coming soon:
+- fast commands from the database (ex. top 5 channels, most active day, most active time)
+- webapp built based on database
     

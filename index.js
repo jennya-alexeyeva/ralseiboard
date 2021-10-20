@@ -6,7 +6,7 @@ const { token, host, port, username, password, database } = require('./config.js
 const mysql = require('mysql2');
 
 // Create a new client instance
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
@@ -29,35 +29,41 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
-let connection = mysql.createConnection({
+client.connection = mysql.createConnection({
     port     : port,
     host     : host,
     user     : username,
     password : password,
     database : database
   });
-connection.connect();
+client.connection.connect();
 
 client.on('guildCreate', guild => {
-    connection.query(`CREATE TABLE \`messages-${guild.id}\` (` +
+    client.connection.query(`CREATE TABLE \`messages-${guild.id}\` (` +
         'MessageId text, ' +
         'Author text, ' +
         'Channel text, ' +
         'Day int, ' +
-        'Time int)'
+        'Time int, ' +
+        'Bot boolean)'
         )
 })
 
 client.on('guildDelete', guild => {
-    connection.query(`DROP TABLE IF EXISTS \`messages-${guild.id}\``);
+    client.connection.query(`DROP TABLE IF EXISTS \`messages-${guild.id}\``);
+})
+
+client.on('messageCreate', msg => {
+    client.connection.query(`INSERT INTO \`messages-${msg.guildId}\` (MessageId, Author, Channel, Day, Time, Bot) VALUES('${msg.id}', '${msg.author.id}', '${msg.channel.id}', ${msg.createdAt.getDay()}, ${msg.createdAt.getHours()}, ${msg.author.bot})`)
+})
+
+client.on('messageDelete', msg => {
+    client.connection.query(`DELETE FROM \`messages-${msg.guildId}\` WHERE MessageId='${msg.id}'`)
 })
 
 client.on('interactionCreate', async interaction => {
-    if (interaction.isCommand()) await commandExecute(interaction)
-    if (interaction.isButton()) await buttonExecute(interaction)
-})
+    if (!interaction.isCommand()) return;
 
-async function commandExecute(interaction) {
     const command = client.commands.get(interaction.commandName);
 
     if (!command) return;
@@ -68,21 +74,7 @@ async function commandExecute(interaction) {
         console.error(error);
         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
     }
-}
-
-async function buttonExecute(interaction) {
-    // TODO figure out a way to optimize this without an endless if else like i'm fucking yandev
-    let buttons = interaction.message.components[0]
-    buttons.components.map(button => button.setDisabled(true))
-    await interaction.message.edit({ content: 'I baked you some yummy cakes! Do you want them?', components: [buttons] })
-
-    if (interaction.customId === 'yesCakes') {
-        await interaction.reply("Yay! I'll give you one right now :D 🎂")
-    }
-    else if (interaction.customId === 'noCakes') {
-        await interaction.reply("Aw :( Maybe some other time?");
-    }
-}
+})
 
 // Login to Discord with your client's token
 client.login(token);

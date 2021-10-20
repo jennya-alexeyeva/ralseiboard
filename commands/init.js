@@ -33,7 +33,7 @@ async function fetch(channel) {
 async function fetchAllMessages(client, guildId, channelSentIn) {
     for (const channel of await client.guilds.cache.get(guildId).channels.cache) {
         let ch = channel[1];
-        if (ch.type === "GUILD_TEXT") {
+        if (ch.type === "GUILD_TEXT" || ch.type === "GUILD_PUBLIC_THREAD" || ch.type === "GUILD_PRIVATE_THREAD") {
             let msgs = await fetch(ch);
             for (const msg of msgs) {
                 if (!msg.isDeleted) {

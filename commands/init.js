@@ -17,7 +17,7 @@ const buttons = new MessageActionRow()
 
 async function fetch(channel) {
     let msgs = [];
-    let channelMessagesMap = await channel.messages.fetch({limit: 100});
+    let channelMessagesMap = await channel.messages.fetch({ limit: 100 });
     let channelMessages = Array.from(channelMessagesMap.values())
     while (channelMessages.length > 0) {
         msgs = msgs.concat(channelMessages);
@@ -35,9 +35,10 @@ async function fetchAllMessages(client, guildId, channelSentIn) {
         let ch = channel[1];
         if (ch.type === "GUILD_TEXT") {
             let msgs = await fetch(ch);
-
             for (const msg of msgs) {
-                client.connection.query(`INSERT INTO \`messages-${guildId}\` (MessageId, Author, Channel, Day, Time, Bot) VALUES('${msg.id}', '${msg.author.id}', '${msg.channel.id}', ${msg.createdAt.getDay()}, ${msg.createdAt.getHours()}, ${msg.author.bot})`)
+                if (!msg.isDeleted) {
+                    client.connection.query(`INSERT IGNORE INTO \`messages-${guildId}\` (MessageId, Author, Channel, Day, Time, Bot) VALUES('${msg.id}', '${msg.author.id}', '${msg.channel.id}', ${msg.createdAt.getDay()}, ${msg.createdAt.getHours()}, ${msg.author.bot})`)
+                }
             }
             await channelSentIn.send(`Processed channel ${ch["name"]}`);
             await channelSentIn.bulkDelete(1, true);
@@ -50,18 +51,20 @@ module.exports = {
         .setName("init")
         .setDescription("Initialize the Ralseiboard database with the server's previous messages."),
     async execute(interaction) {
-        await interaction.reply({content: messageText,
-                components: [buttons], fetchReply: true})
+        await interaction.reply({
+            content: messageText,
+            components: [buttons], fetchReply: true
+        })
             .then(message => {
-                const collector = message.createMessageComponentCollector({componentType: 'BUTTON', time: 15000});
+                const collector = message.createMessageComponentCollector({ componentType: 'BUTTON', time: 15000 });
 
                 collector.on("collect", async i => {
                     if (i.user.id !== interaction.user.id) {
-                        i.reply({content: "Only the person who called the command can use the buttons.", ephemeral: true})
+                        i.reply({ content: "Only the person who called the command can use the buttons.", ephemeral: true })
                     } else {
                         let buttonsCopy = message.components[0];
                         buttonsCopy.components.map(button => button.setDisabled(true));
-                        await message.edit({content: messageText, components: [buttonsCopy]});
+                        await message.edit({ content: messageText, components: [buttonsCopy] });
 
                         if (i.customId === 'yesInit') {
                             await i.reply("Beginning command.");
@@ -73,5 +76,5 @@ module.exports = {
                     }
                 })
             })
-    } // TODO write init script that runs when the yes button is pressed, kind of based on my failed mostactive command
+    }
 }

@@ -54,7 +54,7 @@ client.on('guildDelete', guild => {
 })
 
 client.on('messageCreate', msg => {
-    client.connection.query(`INSERT INTO \`messages-${msg.guildId}\` (MessageId, Author, Channel, Day, Time, Bot) VALUES('${msg.id}', '${msg.author.id}', '${msg.channel.id}', ${msg.createdAt.getDay()}, ${msg.createdAt.getHours()}, ${msg.author.bot})`)
+    client.connection.query(`INSERT IGNORE INTO \`messages-${msg.guildId}\` (MessageId, Author, Channel, Day, Time, Bot) VALUES('${msg.id}', '${msg.author.id}', '${msg.channel.id}', ${msg.createdAt.getDay()}, ${msg.createdAt.getHours()}, ${msg.author.bot})`)
 })
 
 client.on('messageDelete', msg => {

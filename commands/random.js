@@ -1,5 +1,4 @@
 const {SlashCommandBuilder} = require("@discordjs/builders")
-const { execute } = require("./textbox")
 
 const listOfImages = ["https://cdn.shopify.com/s/files/1/0014/1962/products/product_DR_ralsei_plush_photo3.png?v=1550098980",
                       "https://static.wikia.nocookie.net/deltarune/images/b/b5/Ralsei_battle_wan.png",
@@ -15,7 +14,9 @@ const listOfMemes = ["https://pbs.twimg.com/media/FBrLGZqXoAQtFZ4.png",
                      "https://media.discordapp.net/attachments/852037066027040789/899099620066603018/image0.png",
                      "https://media.discordapp.net/attachments/895457995952111677/898180317893001266/image0.jpg",
                      "https://tenor.com/view/deltarune-ralsei-help-gif-23230382",
-                     "https://tenor.com/view/ralsei-deltarune-gif-23259488"]
+                     "https://tenor.com/view/ralsei-deltarune-gif-23259488",
+                     "https://www.reddit.com/r/ralsei/comments/qe1nax/ralsei_trips_over_a_rock/?utm_source=share&utm_medium=web2x&context=3",
+                     "https://i.etsystatic.com/10033408/r/il/f470f9/3000557888/il_680x540.3000557888_ex8v.jpg"]
 
 const listOfGifs = ["https://media.riffsy.com/images/e0e41e0f9a34ed17aed6cbdeea888739/tenor.gif",
                     "https://media.riffsy.com/images/847ee5097ba852c0ad97e44c2e6dc108/tenor.gif",

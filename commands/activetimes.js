@@ -10,7 +10,7 @@ function query(channelOrAuthor, id, interaction) {
                 }
                 const top = results[0];
                 const lowerBoundAm = top['Time'] < 12
-                const upperBoundAm = top['Time'] + 1 < 12
+                const upperBoundAm = top['Time'] + 1 < 12 || top['Time'] + 1 === 24
                 const lowerBound = top['Time'] % 12 === 0 ? 12 : top['Time'] % 12
                 const upperBound = (top['Time'] + 1) % 12 === 0 ? 12 : (top['Time'] + 1) % 12
                 await interaction.reply(`<${channelOrAuthor === "Channel" ? "#" : "@"}${id}> is most active on ${dayOfWeek[top['Day']]} between ${lowerBound} ${lowerBoundAm ? "am" : "pm"} and ${upperBound} ${upperBoundAm ? "am" : "pm"}!`);

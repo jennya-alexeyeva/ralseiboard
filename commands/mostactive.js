@@ -5,7 +5,7 @@ const {SlashCommandBuilder} = require("@discordjs/builders")
  */
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("active")
+        .setName("mostactive")
         .setDescription("See the activity on this server!")
         .addSubcommand(subcommand => subcommand
             .setName("channels")

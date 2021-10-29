@@ -34,7 +34,7 @@ module.exports = {
             .setName("user")
             .setDescription("What time is this user most active?").addStringOption(option =>
                 option.setName("target")
-                    .setDescription("The channel to check. Leave blank to check this channel."))),
+                    .setDescription("The user to check. Leave blank to check yourself."))),
     async execute(interaction) {
         let id = interaction.options.getString('target');
         let strippedId = null;

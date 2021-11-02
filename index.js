@@ -6,7 +6,7 @@ const { token, host, port, username, password, database } = require('./config.js
 const mysql = require('mysql2');
 
 // Create a new client instance
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS] });
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 

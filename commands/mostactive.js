@@ -34,6 +34,9 @@ module.exports = {
                     await interaction.reply({content: "Invalid user.", ephemeral: true});
                     return;
                 }
+                if (!strippedId) {
+                    strippedId = interaction.user.id
+                }
                 interaction.client.connection.query(`SELECT COUNT(MessageId), Channel FROM \`messages-${interaction.guildId}\` WHERE Author=${strippedId} GROUP BY Channel ORDER BY Count(MessageId) DESC;`,
                 async (error, results, _) => {
                     if (error) {
@@ -61,6 +64,9 @@ module.exports = {
                 if (strippedId && !interaction.guild.channels.cache.some(channel => channel.id === strippedId)) {
                     await interaction.reply({content: "Invalid channel.", ephemeral: true});
                     return;
+                }
+                if (!strippedId) {
+                    strippedId = interaction.channel.id
                 }
                 interaction.client.connection.query(`SELECT COUNT(MessageId), Author FROM \`messages-${interaction.guildId}\` WHERE Channel=${strippedId} GROUP BY Author ORDER BY Count(MessageId) DESC;`,
                 async (error, results, _) => {

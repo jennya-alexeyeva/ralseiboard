@@ -30,12 +30,12 @@ for (const file of commandFiles) {
 }
 
 client.connection = mysql.createConnection({
-    port     : port,
-    host     : host,
-    user     : username,
-    password : password,
-    database : database
-  });
+    port: port,
+    host: host,
+    user: username,
+    password: password,
+    database: database
+});
 client.connection.connect();
 
 client.on('guildCreate', guild => {
@@ -46,7 +46,7 @@ client.on('guildCreate', guild => {
         'Day int, ' +
         'Time int, ' +
         'Bot boolean)'
-        )
+    )
 })
 
 client.on('guildDelete', guild => {

@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS] });

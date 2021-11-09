@@ -31,7 +31,7 @@ for (const file of commandFiles) {
 
 client.connection = mysql.createConnection(process.env.JAWSDB_MARIA_URL);
 client.connection.connect();
-
+/*
 client.on('guildCreate', guild => {
     client.connection.query(`CREATE TABLE \`messages-${guild.id}\` (` +
         'MessageId text, ' +
@@ -54,7 +54,7 @@ client.on('messageCreate', msg => {
 client.on('messageDelete', msg => {
     client.connection.query(`DELETE FROM \`messages-${msg.guildId}\` WHERE MessageId='${msg.id}'`)
 })
-
+*/
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
 

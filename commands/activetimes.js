@@ -36,6 +36,8 @@ module.exports = {
                 option.setName("target")
                     .setDescription("The user to check. Leave blank to check yourself."))),
     async execute(interaction) {
+        await interaction.reply("This command is defunct while Jennya figures out how to host databases remotely now that Ralseiboard is on a server. Our apologies for the delay! -Jennya + Ralsei");
+        /*
         let id = interaction.options.getString('target');
         let strippedId = null;
         if (id) {
@@ -58,6 +60,6 @@ module.exports = {
             }
             query("Author", strippedId ?? interaction.user.id, interaction);
         }
-    
+    */
     }
 }

@@ -1,5 +1,6 @@
 const {SlashCommandBuilder} = require("@discordjs/builders")
 
+/*
 /**
  * See most active users/channels/what have you. Mostly just SQL practice for when I build the webapp lol.
  */
@@ -20,6 +21,8 @@ module.exports = {
                 option.setName("target")
                 .setDescription("The channel to check. Leave blank to check this channel."))),
         async execute(interaction) {
+            await interaction.reply("This command is defunct while Jennya figures out how to host databases remotely now that Ralseiboard is on a server. Our apologies for the delay! -Jennya + Ralsei");
+            /*
             let id = interaction.options.getString('target');
             let strippedId = null;
             if (id) {
@@ -89,5 +92,6 @@ module.exports = {
                 }
             )
         }
+        */
     }
 }

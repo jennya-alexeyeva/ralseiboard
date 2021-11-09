@@ -28,6 +28,7 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
+/*
 client.connection = mysql.createConnection({
     port: process.env.port,
     host: process.env.host,
@@ -59,7 +60,7 @@ client.on('messageCreate', msg => {
 client.on('messageDelete', msg => {
     client.connection.query(`DELETE FROM \`messages-${msg.guildId}\` WHERE MessageId='${msg.id}'`)
 })
-
+*/
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
 

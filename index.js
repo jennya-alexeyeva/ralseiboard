@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
-const { token, host, port, username, password, database } = require('./config.json');
 const mysql = require('mysql2');
 
 // Create a new client instance
@@ -30,11 +29,11 @@ for (const file of commandFiles) {
 }
 
 client.connection = mysql.createConnection({
-    port: port,
-    host: host,
-    user: username,
-    password: password,
-    database: database
+    port: process.env.port,
+    host: process.env.host,
+    user: process.env.username,
+    password: process.env.password,
+    database: process.env.database
 });
 client.connection.connect();
 
@@ -77,4 +76,4 @@ client.on('interactionCreate', async interaction => {
 })
 
 // Login to Discord with your client's token
-client.login(process.env.token ?? token);
+client.login(process.env.token);

@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
-const mysql = require('mysql2');
+const mysql = require('mysql');
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS] });
@@ -28,14 +28,8 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
-/*
-client.connection = mysql.createConnection({
-    port: process.env.port,
-    host: process.env.host,
-    user: process.env.username,
-    password: process.env.password,
-    database: process.env.database
-});
+
+client.connection = mysql.createConnection(process.env.JAWSDB_MARIA_URL);
 client.connection.connect();
 
 client.on('guildCreate', guild => {
@@ -60,7 +54,7 @@ client.on('messageCreate', msg => {
 client.on('messageDelete', msg => {
     client.connection.query(`DELETE FROM \`messages-${msg.guildId}\` WHERE MessageId='${msg.id}'`)
 })
-*/
+
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
 

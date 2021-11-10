@@ -36,6 +36,9 @@ function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;
     do {
+      if (milliseconds - (currentDate - date) % 1000 == 0) {
+          console.log(`${milliseconds - (currentDate - date)} seconds remaining!`)
+      }
       currentDate = Date.now();
     } while (currentDate - date < milliseconds);
   }
@@ -50,6 +53,8 @@ async function fetchAllMessages(client, guildId, channelSentIn) {
                     client.connection.query(`INSERT IGNORE INTO \`messages-${guildId}\` (MessageId, Author, Channel, Day, Time, Bot) VALUES('${msg.id}', '${msg.author.id}', '${msg.channel.id}', ${msg.createdAt.getDay()}, ${msg.createdAt.getHours()}, ${msg.author.bot})`)
                     idx += 1
                     if (idx == 15000) { // very very hacky way to maintain limits. i may have to fix this if i ever deploy this for a wider audience
+                        idx = 0
+                        console.log("sleeping for an hour for the sake of innit")
                         sleep(3600000)
                     }
                 }

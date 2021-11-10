@@ -39,7 +39,7 @@ client.on('guildCreate', guild => {
         'Channel text, ' +
         'Day int, ' +
         'Time int, ' +
-        'Bot boolean)'
+        'Bot boolean, PRIMARY KEY MessageId)'
     )
 })
 

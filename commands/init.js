@@ -52,7 +52,6 @@ module.exports = {
         .setDescription("Initialize the Ralseiboard database with the server's previous messages."),
     async execute(interaction) {
         await interaction.reply("This command is defunct while Jennya figures out how to host databases remotely now that Ralseiboard is on a server. Our apologies for the delay! -Jennya + Ralsei");
-        /*
         await interaction.reply({
             content: messageText,
             components: [buttons], fetchReply: true
@@ -78,6 +77,5 @@ module.exports = {
                     }
                 })
             })
-            */
     }
 }

@@ -3,6 +3,8 @@ const { MessageActionRow, MessageButton } = require("discord.js");
 
 const messageText = "WARNING: This command will crawl through every single message sent in the server. As such, it will take a while to run, and during its runtime, it will not be able to listen to new messages. It is highly recommended that you run this when the server is inactive. Proceed anyway?";
 
+let idx = 0
+
 const buttons = new MessageActionRow()
     .addComponents(
         new MessageButton()
@@ -30,6 +32,14 @@ async function fetch(channel) {
     return msgs;
 }
 
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
+
 async function fetchAllMessages(client, guildId, channelSentIn) {
     for (const channel of await client.guilds.cache.get(guildId).channels.cache) {
         let ch = channel[1];
@@ -38,6 +48,10 @@ async function fetchAllMessages(client, guildId, channelSentIn) {
             for (const msg of msgs) {
                 if (!msg.isDeleted) {
                     client.connection.query(`INSERT IGNORE INTO \`messages-${guildId}\` (MessageId, Author, Channel, Day, Time, Bot) VALUES('${msg.id}', '${msg.author.id}', '${msg.channel.id}', ${msg.createdAt.getDay()}, ${msg.createdAt.getHours()}, ${msg.author.bot})`)
+                    idx += 1
+                    if (idx == 15000) { // very very hacky way to maintain limits. i may have to fix this if i ever deploy this for a wider audience
+                        sleep(3600000)
+                    }
                 }
             }
             await channelSentIn.send(`Processed channel ${ch["name"]}`);

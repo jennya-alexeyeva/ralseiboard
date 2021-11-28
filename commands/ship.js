@@ -6,7 +6,7 @@ module.exports = {
         .setDescription('Show the best ship in the world'),
     async execute(interaction) {
         await interaction.reply({
-            files: ["loganboard.png"]
+            files: ["ralexa.png"]
         });
     }
 }

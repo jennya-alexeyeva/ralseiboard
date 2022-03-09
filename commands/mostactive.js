@@ -89,7 +89,7 @@ module.exports = {
 							// The user has left the server.
 							user = null;
 						}
-						replyString += `${user ? user.username : 'Unknown'}#${user ? user.discriminator : '0000'}`;
+						replyString += `${user ? user.username : 'Unknown'}#${user ? user.discriminator : '0000'}\n`;
 					}
 					await interaction.reply(replyString);
 				},

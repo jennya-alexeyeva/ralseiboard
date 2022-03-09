@@ -34,14 +34,7 @@ for (const file of commandFiles) {
 }
 
 
-client.connection = mysql.createConnection(
-	{
-		host: 's29oj5odr85rij2o.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-		user: 'q33ob2qq3ie97v7p',
-		password: 'bhuoc9hlcktejfbc',
-		port: 3306,
-		database: 'mvo8hspgefubyfd5',
-	});
+client.connection = mysql.createConnection(process.env.JAWSDB_URL);
 client.connection.connect();
 
 client.on('guildCreate', guild => {
@@ -91,4 +84,4 @@ client.on('interactionCreate', async interaction => {
 });
 
 // Login to Discord with your client's token
-client.login('ODk2MTUwMzMyMDMwMTg5NTc5.YWC7CA.O6FsYL2HLtMlmmnHoT4jkHrISnA');
+client.login(process.env.token);

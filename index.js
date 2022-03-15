@@ -46,7 +46,7 @@ client.on('guildCreate', guild => {
         'Time int, ' +
         'Bot boolean, PRIMARY KEY (MessageId))',
 	);
-	client.connection.query(`INSERT IGNORE INTO settings (ServerId, Timezone) VALUES ('${guild.id}', 'UTC')`);
+	client.connection.query(`INSERT IGNORE INTO settings (ServerId, Timezone) VALUES ('${guild.id}', 'America/New_York')`);
 });
 
 client.on('guildDelete', guild => {

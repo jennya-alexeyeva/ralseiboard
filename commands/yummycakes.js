@@ -31,7 +31,10 @@ module.exports = {
 
 				collector.on('collect', async i => {
 					if (i.user.id !== interaction.user.id) {
-						i.reply({ content: 'Only the person who called the command can use the buttons.', ephemeral: true });
+						await i.reply({
+							content: 'Only the person who called the command can use the buttons.',
+							ephemeral: true,
+						});
 					}
 					else {
 						const buttonsCopy = message.components[0];

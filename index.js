@@ -1,11 +1,11 @@
 // calculated very scientifically using heroku file size limits
 const MAX_TABLE_SIZE = 18000;
 
-// Require the necessary discord.js classes
-
+// Require the necessary classes
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const mysql = require('mysql2');
+const { DateTime } = require('luxon');
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS] });
@@ -46,17 +46,37 @@ client.on('guildCreate', guild => {
         'Time int, ' +
         'Bot boolean, PRIMARY KEY (MessageId))',
 	);
+	client.connection.query(`INSERT IGNORE INTO settings (ServerId, Timezone) VALUES ('${guild.id}', 'UTC')`);
 });
 
 client.on('guildDelete', guild => {
 	client.connection.query(`DROP TABLE IF EXISTS \`messages-${guild.id}\``);
 });
 
-client.on('messageCreate', msg => {
-	client.connection.query(`INSERT IGNORE INTO \`messages-${msg.guildId}\` (MessageId, Author, Channel, Day, Time, Bot) VALUES('${msg.id}', '${msg.author.id}', '${msg.channel.id}', ${msg.createdAt.getDay()}, ${msg.createdAt.getHours()}, ${msg.author.bot})`);
+function getZone(guildId) {
+	let timezone;
+	client.connection.query(`SELECT timezone FROM settings WHERE ServerId = ${guildId}`,
+		// eslint-disable-next-line no-unused-vars
+		async (error, results, _) => {
+			if (error) {
+				console.log(error);
+				return;
+			}
+			timezone = results[0]['timezone'];
+		});
+	return timezone;
+}
 
+client.on('messageCreate', msg => {
+	const time = DateTime.fromMillis(msg.createdTimestamp);
+	time.setZone(getZone(msg.guildId));
+	client.connection.query(`INSERT IGNORE INTO \`messages-${msg.guildId}\` (MessageId, Author, Channel, Day, Time, Bot) VALUES('${msg.id}', '${msg.author.id}', '${msg.channel.id}', ${time.weekday}, ${time.hour}, ${msg.author.bot})`);
 	client.connection.query(`SELECT COUNT(*) FROM \`messages-${msg.guildId}\``,
 		async (error, results) => {
+			if (error) {
+				console.log(error);
+				return;
+			}
 			if (results[0]['COUNT(*)'] > MAX_TABLE_SIZE) {
 				client.connection.query(`DELETE FROM \`messages-${msg.guildId}\` ORDER BY MessageId ASC LIMIT 1`);
 			}

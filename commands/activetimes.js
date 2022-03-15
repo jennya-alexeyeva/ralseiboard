@@ -4,6 +4,7 @@ const dayOfWeek = ['Sundays', 'Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 
 
 function query(channelOrAuthor, id, interaction) {
 	interaction.client.connection.query(`SELECT COUNT(MessageId), Day, Time FROM \`messages-${interaction.guildId}\` WHERE ${channelOrAuthor}=${id} GROUP BY Day, Time ORDER BY Count(MessageId) DESC;`,
+		// eslint-disable-next-line no-unused-vars
 		async (error, results, _) => {
 			if (error) {
 				await interaction.reply({ content: `Error loading messages: ${error}.`, ephemeral: true });

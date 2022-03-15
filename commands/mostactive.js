@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-/*
 /**
  * See most active users/channels/what have you. Mostly just SQL practice for when I build the webapp lol.
  */

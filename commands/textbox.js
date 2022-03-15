@@ -42,7 +42,6 @@ const expressionsToHatlessRalsei = {
 
 function buildRalseiUrl(type, expression, text) {
 	return `https://www.demirramon.com/gen/undertale_text_box.png?text=${encodeURIComponent(text)}&box=deltarune&boxcolor=ffffff&character=${type === 'hat' ? 'deltarune-ralseidisguise' : 'deltarune-ralsei'}&expression=${expression}&charcolor=colored&font=determination&asterisk=ffffff&mode=darkworld`;
-
 }
 
 module.exports = {

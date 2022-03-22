@@ -57,7 +57,7 @@ module.exports = {
 								catch {
 									channel = null;
 								}
-								replyString += `${channel ? `<#${channel.id}>` : 'Unknown'}`;
+								replyString += `${channel ? `<#${channel.id}>` : 'Unknown'}\n`;
 							}
 							await interaction.reply(replyString);
 						});
